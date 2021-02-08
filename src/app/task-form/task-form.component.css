@@ -1,0 +1,12 @@
+::ng-deep.mat-dialog-content{
+
+    display: flex;
+    margin: 0 -24px;
+    padding: 0 24px;
+    max-height: 65vh;
+    overflow: auto;
+    flex-direction: column;
+}
+::ng-deep.mat-dialog-actions{
+    justify-content: flex-end;
+}

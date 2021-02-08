@@ -1,0 +1,69 @@
+<div class="task-container">
+    <div class='pending-box'>
+        <div cdkDropListGroup>
+            <h2 class='box-title'>Pending</h2>
+            <div class="pending-container">
+
+                <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]='pending' class="example-list"
+                    (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[processList]">
+                    <div *ngIf='showCards'>
+                        <div class="pending-card" *ngFor="let item of pending" cdkDrag>{{item.title ? item.title : 'No
+                            Tasks'}}
+                            <div class='action-group'>
+                                <span class='edit-task' (click)='editPendingTask(item.id)'> Edit</span>
+                                <span class='del-task' (click)='deletePendingTask(item.id)'> Del</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf='!showCards'>
+                        <div class="pending-card-empty">
+                            No Tasks in Pending
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="process-box">
+        <div class="process-container">
+            <h2 class='box-title'>In Process</h2>
+
+            <div cdkDropList #processList="cdkDropList" [cdkDropListData]="process" class="example-list"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[pendingList, completedList]">
+                <div *ngIf='showProcessCards'>
+                    <div class="process-card" *ngFor="let item of process" cdkDrag>{{item.title ? item.title : 'No
+                        Tasks'}}
+                        <div class='action-group'>
+                            <span class='del-task' (click)='deleteProcessTask(item.id)'> Del</span>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf='!showProcessCards'>
+                    <div class="pending-card-empty">
+                        No Tasks in Process
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="completed-box">
+        <div class="completed-container">
+            <h2 class='box-title'>Completed</h2>
+            <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="completed" class="example-list"
+                (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[processList]">
+                <div *ngIf='showCompletedCards'>
+                    <div class="completed-card" *ngFor="let item of completed" cdkDrag>{{item.title ? item.title : 'No
+                        Tasks'}}
+                    </div>
+                </div>
+                <div *ngIf='!showCompletedCards'>
+                    <div class="completed-card-empty">
+                        No Tasks in Completed
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
