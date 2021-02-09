@@ -1,3 +1,8 @@
+
+## Site Preview
+
+[Daily-Task-Manager](honey-tracker.netlify.com)
+
 # TaskManager
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
@@ -5,8 +10,3 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Site Preview
-
-honey-tracker.netlify.com
-
