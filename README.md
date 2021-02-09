@@ -1,7 +1,7 @@
 
 ## Site Preview
 
-[Daily-Task-Manager](honey-tracker.netlify.com)
+[Daily-Task-Manager](https://honey-tracker.netlify.app/)
 
 # TaskManager
 
