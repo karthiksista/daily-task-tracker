@@ -7,11 +7,26 @@
                 <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]='pending' class="example-list"
                     (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[processList]">
                     <div *ngIf='showCards'>
-                        <div class="pending-card" *ngFor="let item of pending" cdkDrag>{{item.title ? item.title : 'No
-                            Tasks'}}
+                        <div class="pending-card" *ngFor="let item of pending" cdkDrag matSort>
+                            <span *ngIf='item.priority == "High" ' class="material-icons">
+                                arrow_upward
+                            </span>
+                            <span *ngIf='item.priority == "Medium" ' class="material-icons">
+                                arrow_forward
+                            </span>
+                            <span *ngIf='item.priority == "low" ' class="material-icons">
+                                arrow_downward
+                            </span>
+                            {{item.title | truncate:35}}
                             <div class='action-group'>
-                                <span class='edit-task' (click)='editPendingTask(item.id)'> Edit</span>
-                                <span class='del-task' (click)='deletePendingTask(item.id)'> Del</span>
+                                <span class="edit-task material-icons" (click)='editPendingTask(item.id)'>
+                                    edit
+                                </span>
+                                <!-- <span class='' > Edit</span> -->
+                                <span class="material-icons del-task" (click)='deletePendingTask(item.id)'>
+                                    delete
+                                </span>
+                                <!-- <span class='del-task' (click)='deletePendingTask(item.id)'> Del</span> -->
                             </div>
                         </div>
                     </div>
@@ -26,6 +41,7 @@
 
         </div>
     </div>
+    <mat-divider></mat-divider>
     <div class="process-box">
         <div class="process-container">
             <h2 class='box-title'>In Process</h2>
@@ -33,10 +49,23 @@
             <div cdkDropList #processList="cdkDropList" [cdkDropListData]="process" class="example-list"
                 (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[pendingList, completedList]">
                 <div *ngIf='showProcessCards'>
-                    <div class="process-card" *ngFor="let item of process" cdkDrag>{{item.title ? item.title : 'No
-                        Tasks'}}
+
+                    <div class="process-card" *ngFor="let item of process" cdkDrag>
+                        <span *ngIf='item.priority == "High" ' class="material-icons">
+                            arrow_upward
+                        </span>
+                        <span *ngIf='item.priority == "Medium" ' class="material-icons">
+                            arrow_forward
+                        </span>
+                        <span *ngIf='item.priority == "low" ' class="material-icons">
+                            arrow_downward
+                        </span>
+                        <span>
+                            {{item.title | truncate:35}}
+                        </span>
+
                         <div class='action-group'>
-                            <span class='del-task' (click)='deleteProcessTask(item.id)'> Del</span>
+                            <span class='del-task material-icons' (click)='deleteProcessTask(item.id)'>delete</span>
                         </div>
                     </div>
                 </div>
@@ -48,14 +77,26 @@
             </div>
         </div>
     </div>
+    <mat-divider></mat-divider>
+
     <div class="completed-box">
+
         <div class="completed-container">
-            <h2 class='box-title'>Completed</h2>
+            <div class='percent-container'>
+                <h2 class='box-title-completed'>Completed</h2>
+                <span [ngClass]="{'red-percentage': completedPercentage < 33,'amber-percentage': (completedPercentage > 33 && completedPercentage < 66),
+                    'green-percentage':completedPercentage > 66}">{{completedPercentage
+                    ? completedPercentage : 0.00}}%</span>
+            </div>
             <div cdkDropList #completedList="cdkDropList" [cdkDropListData]="completed" class="example-list"
                 (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[processList]">
                 <div *ngIf='showCompletedCards'>
-                    <div class="completed-card" *ngFor="let item of completed" cdkDrag>{{item.title ? item.title : 'No
-                        Tasks'}}
+
+                    <div class="completed-card" *ngFor="let item of completed" cdkDrag>
+                        <span class="material-icons">
+                            check_circle_outline
+                        </span>
+                        {{item.title | truncate:35}}
                     </div>
                 </div>
                 <div *ngIf='!showCompletedCards'>

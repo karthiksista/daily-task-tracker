@@ -17,54 +17,56 @@ export class StorageService {
   }
 
   createNewTasks(data): any {
-    var pendingList = [];
-    pendingList = JSON.parse(localStorage.getItem('pendingList')) || [];
-    console.log(data, 'naaadata')
+    if (data !== undefined) {
+      var pendingList = [];
+      pendingList = JSON.parse(localStorage.getItem('pendingList')) || [];
+      // console.log(data, 'naaadata')
 
-    console.log(pendingList.length, 'lengthyyyy')
-    if (pendingList.length) {
-      data['id'] = Math.floor(Math.random() * 100);
-    } else {
-      data['id'] = 1
+      // console.log(pendingList.length, 'lengthyyyy')
+      if (pendingList.length) {
+        data['id'] = Math.floor(Math.random() * 100);
+      } else {
+        data['id'] = 1
+      }
+      pendingList.unshift(data);
+      localStorage.setItem('pendingList', JSON.stringify(pendingList));
     }
-    pendingList.push(data);
-    localStorage.setItem('pendingList', JSON.stringify(pendingList));
   }
 
   editPendingTask(data, id): any {
-    console.log('before data', data)
+    // console.log('before data', data)
     var pendingList = [];
     pendingList = JSON.parse(localStorage.getItem('pendingList'))
     const index = pendingList.findIndex(editIdData => editIdData.id === id)
     data['id'] = id
-    console.log('index', index)
+    // console.log('index', index)
     pendingList[index] = data
     localStorage.setItem('pendingList', JSON.stringify(pendingList));
-    console.log('afterdata', pendingList)
+    // console.log('afterdata', pendingList)
   }
 
   deletePendingTask(id): any {
     var pendingList = [];
     pendingList = JSON.parse(localStorage.getItem('pendingList'))
     const index = pendingList.findIndex(editIdData => editIdData.id === id)
-    console.log('index', index)
+    // console.log('index', index)
     pendingList.splice(index, 1)
     localStorage.setItem('pendingList', JSON.stringify(pendingList));
-    console.log('afterdata', pendingList)
+    // console.log('afterdata', pendingList)
   }
 
   deleteProcessTask(id): any {
     var processList = [];
     processList = JSON.parse(localStorage.getItem('processList'))
     const index = processList.findIndex(editIdData => editIdData.id === id)
-    console.log('index', index)
+    // console.log('index', index)
     processList.splice(index, 1)
     localStorage.setItem('processList', JSON.stringify(processList));
-    console.log('afterdata', processList)
+    // console.log('afterdata', processList)
   }
 
   updatePendingTasks(data): any {
-    console.log('UPDATEPENDIN', data)
+    // console.log('UPDATEPENDIN', data)
     localStorage.setItem('pendingList', JSON.stringify(data));
   }
 

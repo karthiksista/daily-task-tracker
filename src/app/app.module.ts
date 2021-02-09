@@ -13,13 +13,26 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatButtonModule, MatSelectModule } from '@angular/material';
 import { StorageService } from './storage.service';
+import { TruncatePipe } from './truncate.pipe';
+import { FooterComponent } from './footer/footer.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskContainerComponent,
     HeaderComponent,
-    TaskFormComponent
+    TaskFormComponent,
+    TruncatePipe,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +45,10 @@ import { StorageService } from './storage.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDividerModule,
+    MatListModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory })
   ],
   entryComponents: [
     TaskFormComponent

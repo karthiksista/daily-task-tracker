@@ -24,7 +24,7 @@ export class HeaderComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+      // console.log('The dialog was closed', result);
       // this.animal = result;
       this._storageService.createNewTasks(result)
       this._storageService.currentMessage.subscribe(message => this.message = message)

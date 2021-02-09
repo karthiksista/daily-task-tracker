@@ -18,22 +18,31 @@ export class TaskContainerComponent implements OnInit {
   showCards: boolean;
   showProcessCards: boolean;
   showCompletedCards: boolean;
-
+  totalTasks
+  completedPercentage
   constructor(private _storageService: StorageService, public dialog: MatDialog) { }
 
   ngOnInit() {
+
     this._storageService.currentMessage.subscribe(message => {
       if (message == 'newtask' || message == 'editedtask' || message == 'deletedtask' || message == 'movedtask') {
-        console.log(message)
-        this.pending = this._storageService.getPendingTasks()
+        // console.log(message)
+        this.pending = this._storageService.getPendingTasks() ? this._storageService.getPendingTasks() : []
         this.process = this._storageService.getProcessTasks() ? this._storageService.getProcessTasks() : []
+        this.completed = this._storageService.getCompletedTasks() ? this._storageService.getCompletedTasks() : []
+        this.totalTasks = this.pending.length + this.process.length + this.completed.length;
+        if (this.completed.length) {
+          this.completedPercentage = ((this.completed.length / this.totalTasks) * 100).toFixed(2)
+        } else {
+          this.completedPercentage = 0.00;
+        }
         if (this.pending.length) {
           this.showCards = true
         } else {
           this.showCards = false;
 
         }
-        console.log(this.process, 'vammoo')
+        // console.log(this.process, 'vammoo')
         if (this.process && this.process.length) {
           this.showProcessCards = true
         } else {
@@ -48,18 +57,24 @@ export class TaskContainerComponent implements OnInit {
         }
         // console.log(this.pending.typeof(), 'pendinpendingpending')
       } else {
-        console.log('mMEHHHH', this.pending)
-        this.pending = this._storageService.getPendingTasks()
+        // console.log('mMEHHHH', this.pending)
+        this.pending = this._storageService.getPendingTasks() ? this._storageService.getPendingTasks() : []
         this.process = this._storageService.getProcessTasks() ? this._storageService.getProcessTasks() : []
         this.completed = this._storageService.getCompletedTasks() ? this._storageService.getCompletedTasks() : []
-
+        this.totalTasks = this.pending.length + this.process.length + this.completed.length;
+        if (this.completed.length) {
+          this.completedPercentage = ((this.completed.length / this.totalTasks) * 100).toFixed(2)
+        } else {
+          this.completedPercentage = 0.00;
+        }
+        console.log(this.completedPercentage)
         if (this.pending.length) {
           this.showCards = true
         } else {
           this.showCards = false;
 
         }
-        console.log(this.process, 'vammoo')
+        // console.log(this.process, 'vammoo')
         if (this.process && this.process.length) {
           this.showProcessCards = true
         } else {
@@ -94,7 +109,7 @@ export class TaskContainerComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed', result);
+          // console.log('The dialog was closed', result);
           // this.animal = result;
           this._storageService.editPendingTask(result, id)
           this._storageService.currentMessage.subscribe(message => this.message = message)
@@ -117,7 +132,7 @@ export class TaskContainerComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event, 'EVENTTT')
+    // console.log(event, 'EVENTTT')
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
